@@ -35,7 +35,7 @@ class Inquiry(models.Model): #1대 1 모델
 class Answer(models.Model): #답변 모델
     answer = models.TextField(verbose_name = "답변 내용")
     content = models.ForeignKey(to = 'Inquiry', on_delete = models.CASCADE, verbose_name = "참조 문의글")
-    ans_writer = models.ForeignKey(to=User, on_delete = models.CASCADE, default = User, null = True, blank = True, verbose_name = "생성자", related_name = 'ans_writer')
+    ans_writer = models.ForeignKey(to=User, on_delete = models.CASCADE, default = User,null = True, blank = True, verbose_name = "생성자", related_name = 'ans_writer')
     ans_date = models.DateTimeField(verbose_name = "생성 일시", auto_now_add = True)
     ans_final_mod = models.ForeignKey(to = User, on_delete = models.CASCADE, null = True, blank = True, default = None, verbose_name = "최종 수정자", related_name = 'ans_final_mod')
     ans_final_date = models.DateTimeField(verbose_name = "최종 수정일시", auto_now = True)
