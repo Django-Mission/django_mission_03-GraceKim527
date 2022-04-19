@@ -1,6 +1,6 @@
-# [Django Mission 02] Basic & Challenge Mission Complete✨
+# [Django Mission 02] Mission Complete✨
 
---- 
+.gitignore을 통해 DB파일과 가상환경이 없으니 git clone을 통해 확인하실 분은 가상환경을 설치해주시고, 마이그레이션을 진행해주세요.
 
 ## Result
 ### Basic Mission
