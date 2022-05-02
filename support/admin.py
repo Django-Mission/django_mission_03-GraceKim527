@@ -4,8 +4,10 @@ from .models import Faq, Inquiry, Answer
 
 @admin.register(Faq)
 class FaqModelAdmin(admin.ModelAdmin):
-    list_display = ('id', 'question', 'category', 'answer', 'writer', 'date', 
-    'final_modify', 'final_date')
+    list_display = ('question', 'category', 'final_date')
+    list_filter = ['category']
+    search_fields = ('question',)
+    search_help_text = '제목 검색 가능합니다.'
 
 @admin.register(Inquiry)
 class InquiyModelAdmin(admin.ModelAdmin):
