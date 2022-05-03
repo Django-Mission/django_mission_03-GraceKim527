@@ -2,6 +2,13 @@ from django.contrib import admin
 from .models import Faq, Inquiry, Answer
 # Register your models here.
 
+# BASIC 미션
+class AnswerInline(admin.TabularInline):
+    model = Answer
+    min_num = 1
+    verbose_name = '답변'
+    verbose_name_plural = '답변'
+
 @admin.register(Faq)
 class FaqModelAdmin(admin.ModelAdmin):
     list_display = ('question', 'category', 'final_date')
@@ -11,7 +18,21 @@ class FaqModelAdmin(admin.ModelAdmin):
 
 @admin.register(Inquiry)
 class InquiyModelAdmin(admin.ModelAdmin):
-    list_display = ('id','title', 'email', 'SMS', 'content', 'image')
+    list_display = ('title', 'category', 'date', 'writer')
+    search_fields = ('title', 'writer', 'SMS', 'email')
+    list_filter = ['category', 'status']
+    inlines = [AnswerInline]
+
+    actions = ['make_published']
+    
+    @admin.action(description='답변 완료 문의 안내 발송')
+    def make_published(modeladmin, request, queryset):
+        for item in queryset:
+            if item.email_btn == True:
+                print(item.email)
+            if item.SMS_btn == True:
+                print(item.SMS)
+        
 
 @admin.register(Answer)
 class AnswerModelAdmin(admin.ModelAdmin):

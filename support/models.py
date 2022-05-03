@@ -31,7 +31,13 @@ class Inquiry(models.Model): #1대 1 모델
         ('2', '계정'),
         ('3', '기타'),
     ]
+    STATUS_CHOICES = [
+        ('1', '문의 등록'),
+        ('2', '접수 완료'),
+        ('3', '답변 완료')
+    ]
     category = models.CharField(max_length = 2, choices=CATEGORY_CHOICES, default = '1', verbose_name="카테고리")
+    status = models.CharField(max_length = 2, choices=STATUS_CHOICES, default = '1', verbose_name="상태")
     title = models.TextField(max_length = 50, verbose_name = "제목")
     email_btn = models.BooleanField(verbose_name="이메일답변수신", default=False)
     email = models.CharField(max_length = 50, verbose_name = "이메일", null = True, blank = True)
@@ -39,10 +45,9 @@ class Inquiry(models.Model): #1대 1 모델
     SMS = models.CharField(max_length = 50, verbose_name = "문자메시지", null = True, blank = True)
     content = models.TextField(verbose_name = "내용")
     image = models.ImageField(verbose_name = "이미지", null = True, blank = True)
-    in_writer = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True, blank=True, verbose_name="생성자", related_name='in_writer')
-    date = models.DateTimeField(verbose_name="생성일시", auto_now_add=True)
-
-    in_final_modify = models.ForeignKey(to=User, on_delete=models.CASCADE, verbose_name="최종 수정자", null=True, blank=True, default=None, related_name='in_final_modify')
+    writer = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True, blank=True, verbose_name="생성자", related_name='inq_writer')
+    date = models.DateTimeField(verbose_name="생성일시", auto_now_add=True, null=True)
+    final_modify = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True, blank=True, default=None, verbose_name="최종 수정자", related_name='inq_modify')
     final_date = models.DateTimeField(verbose_name = "최종 수정일시", auto_now = True)
     
 class Answer(models.Model): #답변 모델
