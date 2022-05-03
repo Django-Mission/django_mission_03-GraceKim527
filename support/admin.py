@@ -2,7 +2,6 @@ from django.contrib import admin
 from .models import Faq, Inquiry, Answer
 # Register your models here.
 
-# BASIC 미션
 class AnswerInline(admin.TabularInline):
     model = Answer
     min_num = 1
@@ -28,9 +27,9 @@ class InquiyModelAdmin(admin.ModelAdmin):
     @admin.action(description='답변 완료 문의 안내 발송')
     def make_published(modeladmin, request, queryset):
         for item in queryset:
-            if item.email_btn == True:
+            if item.email_btn == True: #이메일 수신 버튼이 true일때만
                 print(item.email)
-            if item.SMS_btn == True:
+            if item.SMS_btn == True: #문자 수신 버튼이 true일때만
                 print(item.SMS)
         
 
