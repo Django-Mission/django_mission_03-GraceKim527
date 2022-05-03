@@ -18,7 +18,8 @@ class FaqModelAdmin(admin.ModelAdmin):
 @admin.register(Inquiry)
 class InquiyModelAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'date', 'writer')
-    search_fields = ('title', 'writer', 'SMS', 'email')
+    #writer은 FK로 가져온거기 때문에 유저모델에 있는 username을 가져와야함
+    search_fields = ('title', 'writer__username', 'SMS', 'email') 
     list_filter = ['category', 'status']
     inlines = [AnswerInline]
 
